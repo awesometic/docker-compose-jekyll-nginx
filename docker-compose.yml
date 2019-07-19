@@ -1,0 +1,34 @@
+version: "3.7"
+services:
+  nginx:
+    image: linuxserver/nginx
+    container_name: jekyll-nginx
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Seoul
+    volumes:
+      - /opt/docker/jekyll-nginx:/config
+    ports:
+      - 8888:80
+    networks:
+      - jekyll
+    restart: unless-stopped
+  jekyll:
+    image: jekyll/jekyll
+    container_name: jekyll-jekyll
+    environment:
+      - JEKYLL_UID=1000
+      - JEKYLL_GID=1000
+      - TZ=Asia/Seoul
+    volumes:
+      - /opt/docker/jekyll-nginx/www:/srv/jekyll
+    networks:
+      - jekyll
+    depends_on:
+      - nginx
+    command: jekyll serve --watch --drafts
+    restart: unless-stopped
+
+networks:
+    jekyll:
