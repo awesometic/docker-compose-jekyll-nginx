@@ -1,6 +1,6 @@
 ## Before run using docker-compose
 
-1. Create Nginx configuration files by executing Nginx once
+1. Create Nginx configuration files by executing Nginx once.
 ```docker
 docker run --rm -e PUID=1000 -e PGID=1000 -e TZ=Asia/Seoul --volume /opt/docker/jekyll-nginx:/config -p 8888:80 linuxserver/nginx
 ```
@@ -18,4 +18,6 @@ docker run --rm --volume "/opt/docker/jekyll-nginx/www:/srv/jekyll" -it jekyll/j
 ```
 
 5. Then run `docker-compose up -d`
+
+6. If you access to http://server:8888, Nginx server acts as reverse proxy server for Jekyll so that you can see your Jekyll websites.
 
